@@ -75,6 +75,8 @@ object GuavaInterop extends GuavaInterop {
       Futures.addCallback(gfut, callback, executor)
     }
 
+    def onCompleteWithUnregister[U](f: scala.util.Try[T] => U)(implicit executor: scala.concurrent.ExecutionContext): () => Unit = () => ()
+
     def transform[S](f: Try[T] => Try[S])(implicit executor: ExecutionContext): Future[S] = {
       val p = Promise[S]()
       onComplete { r =>
